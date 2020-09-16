@@ -1,0 +1,21 @@
+
+1. npm init - y
+	- This create the package.json file
+
+2. Add "private": true to the object in package.json.
+	- This prevents the package from being published.
+
+pakage.json will contain
+   "main": "index.js"
+   This is an entry point to the node application.
+
+ create folder "src" in the root directory.
+
+ create index.js and leave it empty for now. 
+
+
+Add git to make a Git repository.
+    - git init    
+
+    Commit
+
