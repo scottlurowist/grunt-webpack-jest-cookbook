@@ -191,3 +191,10 @@ Your function is no longer wrapped in eval due to devtool none.
 You may delete the dist folder and try again.
 
   Commit
+
+  Update the build script in package.json with this:
+      "build": "webpack --config webpack.config.js",
+
+ Now you run run: npm run build, since build is not a script know to npm.
+
+ Commit     
