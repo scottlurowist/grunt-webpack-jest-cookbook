@@ -1,4 +1,8 @@
 
+
+const webpackConfig = require('./webpack.config');
+
+
 module.exports = grunt => {
 
     // Our main configuration.
@@ -13,7 +17,10 @@ module.exports = grunt => {
                 'test'
               ]
             }
-        }           
+        },
+        webpack: {
+            configFile: webpackConfig,
+        },           
     });
 
 
@@ -30,8 +37,10 @@ module.exports = grunt => {
 
     // Load our plugins...
     grunt.loadNpmTasks('grunt-run');
+    grunt.loadNpmTasks('grunt-webpack');
 
     // Register our NPM script in package.json so that we can invoke
     // the NPM script from Grunt.
     grunt.registerTask('test', ['run:test:cmd'])   
+    grunt.registerTask('build', ['webpack:configFile']);
 }

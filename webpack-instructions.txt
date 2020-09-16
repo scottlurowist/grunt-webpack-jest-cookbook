@@ -123,3 +123,66 @@ so we use Grunt to give us a consistent interface for issuing build and run comm
 
 
 Commit
+
+
+Install webpack with the following:
+npm install --save-dev webpack webpack-cli
+
+now add the following line inside the "scripts" key in package.json
+
+  "scripts": {
+    "build": "webpack",
+    "test": "jest"
+  },
+
+  Now at the command line run "npm run build". Webpack should now run. When it completes
+  we now have a dist folder with a "main.js" file.
+
+          - By default without any configuration, webpack wants to see a file "index.js"
+          inside a "src" folder. But it can be overriden in configuration.
+        - By default without any configuration, webpack will create "dist/main.js".  
+        Also by default it builds in production mode, so it will look a bit cryptic and already
+        look a bit minified. It also wraps our code in eval statements.
+	- Your code in dist/main.js is wrapped in webpack magic.
+
+Rename "index.js" to some another name and run "npm run build" again. Now we see that webpack
+fails.
+
+To rund webpack from Grunt, we need to use the webpack config file. It can be called anything,
+but convention is to call it webpack.congig.js. Create an empty file and add this to it:
+const path = require("path");
+
+
+module.exports = {
+    mode: "development",
+    devtool: "none",
+    entry: "./src/index.js",
+    output: {
+        filename: "app.js",
+        // Resolves the current directory to the relative path "dist".
+        // __dirname is the directory in which this config file 
+        // resides.
+        path: path.resolve(__dirname, "dist")
+    },
+}
+
+We shall set the mode to development mode so that our output file looks more readable for
+development. setting devtool to none removes our code from the eval statements created by default.
+entry is again our entry point. Output renames our bundled file to app.js and uses the default
+"dist" folder but we could call it anything. We'll go with dist/app.js.
+
+Now at the commandline run npm install --save-dev grunt-webpack. This will install the plugin that
+allows us to run webpack from Grunt.
+
+Add this to the top of Gruntfile.js
+const webpackConfig = require('./webpack.config');
+
+Add this to our gruntfile config
+        webpack: {
+            configFile: webpackConfig,
+        },
+
+Add this to Gruntfile.js after the line of code to load grunt-run:
+    grunt.loadNpmTasks('grunt-webpack');
+
+  Commit
