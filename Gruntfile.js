@@ -40,6 +40,7 @@ module.exports = grunt => {
     grunt.loadNpmTasks('grunt-webpack');
 
     // Register our NPM script in package.json so that we can invoke
-    // the NPM script from Grun   
+    // the NPM script from Grunt.
+    grunt.registerTask('test', ['run:test'])   
     grunt.registerTask('build', ['webpack:configFile']);
 }
