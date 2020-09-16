@@ -17,5 +17,41 @@ pakage.json will contain
 Add git to make a Git repository.
     - git init    
 
-    Commit
+Commit
+
+Step 2
+npm install --save-dev grunt
+
+Now grunt is installed. 
+Create "Gruntfile.js" include the following:
+module.exports = grunt => {
+
+    // Our main configuration.
+    grunt.initConfig({});
+
+
+    // Sample custom tasks...
+    grunt.registerTask('speak', () => {
+        console.log('Speaking...');
+    });
+
+    grunt.registerTask('yell', () => {
+        console.log('YELLING...');
+    });
+
+    grunt.registerTask('both', ['speak', 'yell']);
+}
+
+This creates a bare-bones Gruntfile.js. We initialize our plugins in grunt.initConfig().
+But we have no plugins are the moment. So we leave it empty.
+
+We create two custom tasks that we can run with:
+grunt speak
+grunt yell.
+
+We can combine them into a task called "both". speak ill eecute bfore yell.
+grunt both
+
+
+Commit
 
