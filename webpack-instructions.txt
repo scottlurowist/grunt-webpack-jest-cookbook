@@ -55,3 +55,71 @@ grunt both
 
 Commit
 
+install Jest but to run Jest we need to be able to invoke it as a command from Grunt.
+There is no supported Grunt plugin at this time.
+
+npm install --save-dev grunt-run
+npm install --save-dev jest
+
+add the following to empty index.js so that we have something to test:
+const addNumbers = (x, y) => {
+    return x + y;
+}
+
+module.exports = addNumbers;
+
+Create a "specs" folder in our project folder. In there create "index.spec.js". Add the following to it:
+
+const addNumbers = require('../src/index');
+
+
+describe("addNumber()", () => {
+
+    it("should return 5", () => {
+
+        const actualResult = addNumbers(2, 3);
+
+        expect(actualResult).toEqual(5);
+    });
+});
+
+Now we have somethign to test, and a test itself.But as stated earlier, there is not current
+Jest Grunt plugin. So, replace our
+test script in package.json with
+    "test": "jest"
+
+To make sure that this works.
+Type "npm jest" at the terminal, and one should pass.
+
+Now we need to configure grunt-run so that we can run this with Grunt.
+
+Add this to Gruntfile.js our config section should now look like this:
+
+    // Our main configuration.
+    grunt.initConfig({
+        run: {
+            options: {
+              // Task-specific options go here.
+            },
+            test: {
+              cmd: 'npm',
+              args: [
+                'test'
+              ]
+            }
+        }           
+    });
+
+Then add this line at the bottom of our Grunt function:
+      grunt.loadNpmTasks('grunt-run');
+      grunt.registerTask('test', ['run:test:cmd'])
+
+This will now invoke our earlier command "npm test" from within Grunt itself as such:
+
+Type: grunt test
+
+Now we can invoke Jest from Grunt. It is also quite confusing to invoke Jest with webpack,
+so we use Grunt to give us a consistent interface for issuing build and run commands.
+
+
+Commit
