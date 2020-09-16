@@ -185,4 +185,9 @@ Add this to our gruntfile config
 Add this to Gruntfile.js after the line of code to load grunt-run:
     grunt.loadNpmTasks('grunt-webpack');
 
+now type grunt build. You should see a readable "app.js" in the dist folder because we used production mode.
+Your function is no longer wrapped in eval due to devtool none.
+
+You may delete the dist folder and try again.
+
   Commit
